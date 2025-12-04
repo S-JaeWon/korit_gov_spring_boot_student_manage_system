@@ -1,0 +1,69 @@
+프로젝트명: student_manage_system
+회원 종류: 관리자, 학생
+테이블
+   - user_tb
+      -username
+      -password
+      -age(학생만)
+      -create_dt
+      -update_dt
+   - user_role_tb
+      -user_role_id
+      -user_id
+      -role_id
+      -create_dt
+      -update_dt
+   - role_tb => "ROLE_ADMIN", "ROLE_STUDENT" 2개
+      -role_id
+      -role_name
+      -role_name_kor
+   - stdt_jrnl_tb => 학생 일지 테이블
+      -stdt_jrnl_id
+      -user_id
+      -jrnl_content #일지 내용
+      -create_dt
+      -update_dt
+   - cls_tb => 수업 테이블
+      -cls_id
+      -cls_name #수업 이름
+      -cls_dscpt   #수업 설명 요약
+   - stdt_cls_tb => 학생 수업 테이블
+      -stdt_cls_id
+      -user_id
+      -cls_id
+      -create_dt
+      -update_dt
+
+기능 구현
+   -auth
+      -signup #회원가입
+         => 학생가입 or 관리자가입 ---> 요청을 아예 다르게
+         => username 중복불가
+      -signin #로그인
+         => 하던대로
+
+   -account
+      -학생
+         -changePassword
+      -관리자
+         -changePassword
+         -removeStudent #학생 탈퇴
+
+   -class
+      -관리자
+         -getClassList #수업 목록 조회
+         -addClass #수업 추가
+         -removeClass #수업 삭제
+      -학생 => 학생 회원 탈퇴시 같이 해당 학생 수강중인 수업 같이 삭제
+         -getStdtClassList #수강중인 수업 전체 조회
+         -joinClass #수업 수강 추가
+         -cancelClass #수업 수강 취소
+
+   -journal  => 학생 회원 탈퇴시 같이 해당 학생일지 같이 삭제
+      -관리자
+         -getJoural #학생 일지 단건 조회
+         -getJouralList #학생 일지 전체 조회(user_id)
+         -addJournal #학생 일지 추가
+         -modifyJournal #학생 일지 수정
+         -removeJournal #학생 일지 삭제
+

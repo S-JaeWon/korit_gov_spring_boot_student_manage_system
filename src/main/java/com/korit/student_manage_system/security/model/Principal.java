@@ -19,7 +19,7 @@ public class Principal implements UserDetails {
     private String username;
     @JsonIgnore
     private String password;
-    private int age;
+    private Integer age;
 
     private List<UserRole> userRoles;
 

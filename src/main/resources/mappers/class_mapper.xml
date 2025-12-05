@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korit.student_manage_system.mapper.ClassMapper">
+    <resultMap id="ClassResultMap" type="com.korit.student_manage_system.entity.Class">
+        <id property="classId" column="cls_id" />
+        <result property="className" column="cls_name" />
+        <result property="classDescription" column="cls_dscpt" />
+        <result property="createDt" column="create_dt" />
+        <result property="updateDt" column="update_dt" />
+    </resultMap>
+
+    <resultMap id="UserClassResultMap" type="com.korit.student_manage_system.entity.UserClass">
+        <id property="userClassId" column="stdt_cls_id" />
+        <result property="userId" column="user_id" />
+        <result property="classId" column="cls_id" />
+        <result property="createDt" column="create_dt" />
+        <result property="updateDt" column="update_dt" />
+        <association property="aClass" resultMap="ClassResultMap" />
+    </resultMap>
+
+    <insert id="addClass" useGeneratedKeys="true" keyProperty="classId">
+        insert into
+            cls_tb
+        values
+            (0, #{className}, #{classDescription}, now(), null);
+    </insert>
+
+    <select id="foundClassListAll" resultMap="ClassResultMap">
+        select
+            *
+        from
+            cls_tb;
+    </select>
+
+    <select id="foundByClassId" resultMap="ClassResultMap">
+        select
+            *
+        from
+            cls_tb
+        where
+            cls_id = #{classId};
+    </select>
+
+    <select id="findClassListByUserId" resultMap="ClassResultMap">
+        select
+            c.cls_id,
+            c.cls_name,
+            c.cls_dscpt,
+            c.create_dt,
+            c.update_dt
+        from
+            cls_tb c
+            join stdt_cls_tb sct on (sct.cls_id = c.cls_id)
+        where
+            sct.user_id = #{userId};
+    </select>
+
+    <select id="foundByClassName" resultMap="ClassResultMap">
+        select
+            *
+        from
+            cls_tb
+        where
+            cls_name = #{className}
+    </select>
+
+    <delete id="removeClass">
+        delete from
+            cls_tb
+        where
+            cls_name = #{className}
+    </delete>
+</mapper>

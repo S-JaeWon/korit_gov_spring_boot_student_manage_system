@@ -35,14 +35,14 @@ public class JwtAuthenticationFilter implements Filter {
     ) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
-        List<String> methods =List.of("POST", "PUT", "PATCH", "DELETE");
+        List<String> methods =List.of("POST", "PUT", "GET", "PATCH", "DELETE");
         if (!methods.contains(request.getMethod())) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
 
         String uri = request.getRequestURI();
-        if (uri.startsWith("/auth/")) {
+        if (uri.startsWith("/admin/auth/") || uri.startsWith("/std/auth/")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -61,7 +61,7 @@ public class JwtAuthenticationFilter implements Filter {
                             .userId(user.getUserId())
                             .username(user.getUsername())
                             .password(user.getPassword())
-                            .age(user.getAge())
+                            .age(user.getAge() != null ? user.getAge() : 0)
                             .userRoles(user.getUserRoles())
                             .build();
 

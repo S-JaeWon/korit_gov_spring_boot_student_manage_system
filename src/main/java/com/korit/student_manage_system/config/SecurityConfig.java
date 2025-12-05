@@ -55,7 +55,7 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/auth/**").permitAll();
+            auth.requestMatchers("/admin/auth/**", "/std/auth/**").permitAll();
             auth.anyRequest().authenticated();
         });
 

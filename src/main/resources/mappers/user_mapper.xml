@@ -91,15 +91,16 @@
         update
             user_tb
         set
-            password = #{password}
+            password = #{password},
+            update_dt = now()
         where
-            user_id = #{user_id}
+            user_id = #{userId}
     </update>
 
     <delete id="removeStudent">
         delete from
             user_tb
         where
-            user_id = #{user_id}
+            user_id = #{userId}
     </delete>
 </mapper>

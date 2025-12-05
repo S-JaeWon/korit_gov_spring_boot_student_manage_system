@@ -1,4 +1,4 @@
-package com.korit.student_manage_system.controller;
+package com.korit.student_manage_system.controller.Student;
 
 import com.korit.student_manage_system.dto.Request.SigninReqDto;
 import com.korit.student_manage_system.dto.Request.SignupReqDto;
@@ -11,19 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
-public class AuthController {
+@RequestMapping("/std/auth")
+public class StudentAuthController {
 
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/student/signup")
+    @PostMapping("/signup")
     public ResponseEntity<?> stdSignup(@RequestBody SignupReqDto signupReqDto) {
         return ResponseEntity.ok(authService.stdSignup(signupReqDto));
-    }
-    @PostMapping("/admin/signup")
-    public ResponseEntity<?> adminSignup(@RequestBody SignupReqDto signupReqDto) {
-        return ResponseEntity.ok(authService.adminSignup(signupReqDto));
     }
 
     @PostMapping("/signin")
